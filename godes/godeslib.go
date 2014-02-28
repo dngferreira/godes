@@ -57,6 +57,8 @@ func AddRunner(runner RunnerInterface) {
 	model.add(runner)
 }
 
+//Interrupt the runner
+//If the runner and the model are valid it interrupts the runner execution
 func Interrupt(runner RunnerInterface) {
 	if runner == nil {
 		panic("runner is nil")
@@ -67,6 +69,8 @@ func Interrupt(runner RunnerInterface) {
 	model.interrupt(runner)
 }
 
+//Resume the runner
+//If the runner and the model are valid it resumes the runner with a new time = interruptTime + timeChange
 func Resume(runner RunnerInterface, timeChange float64) {
 	if runner == nil {
 		panic("runner is nil")
@@ -77,6 +81,8 @@ func Resume(runner RunnerInterface, timeChange float64) {
 	model.resume(runner, timeChange)
 }
 
+//Runs the model
+//If there is no model it creates a model and starts the simulation 
 func Run() {
 	if model == nil {
 		createModel(false)
