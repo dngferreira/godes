@@ -42,6 +42,7 @@ func newModel(verbose bool) *Model {
 	return &mdl
 }
 
+//advance model time
 func (mdl *Model) advance(interval float64) bool {
 
 	ch := mdl.activeRunner.getChannel()
@@ -55,6 +56,7 @@ func (mdl *Model) advance(interval float64) bool {
 	return true
 }
 
+//waitUntillDone waits untill all childs have returned
 func (mdl *Model) waitUntillDone() {
 
 	if mdl.activeRunner.GetId() != 0 {
@@ -76,6 +78,7 @@ func (mdl *Model) waitUntillDone() {
 	}
 }
 
+//add adds a new runner to the model, adding it to the moving List
 func (mdl *Model) add(runner RunnerInterface) bool {
 
 	mdl.currentId++
@@ -101,6 +104,7 @@ func (mdl *Model) add(runner RunnerInterface) bool {
 
 }
 
+//interrupt interrupts the runner and removes it from the SchedulledList
 func (mdl *Model) interrupt(runner RunnerInterface) {
 
 	if runner.GetState() != RUNNER_STATE_SCHEDULED {
@@ -112,6 +116,7 @@ func (mdl *Model) interrupt(runner RunnerInterface) {
 
 }
 
+//resume resumes the execution of a runner with a new timestam = time of interruption + timeChange
 func (mdl *Model) resume(runner RunnerInterface, timeChange float64) {
 	if runner.GetState() != RUNNER_STATE_INTERRUPTED {
 		panic("It is not  RUNNER_STATE_INTERRUPTED")
@@ -122,6 +127,7 @@ func (mdl *Model) resume(runner RunnerInterface, timeChange float64) {
 	mdl.addToMovingList(runner)
 
 }
+
 
 func (mdl *Model) booleanControlWait(b *BooleanControl, val bool) {
 
